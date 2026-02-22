@@ -2,9 +2,18 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Sensi FF 200 Max</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gerador de Sensi</title>
     <style>
+        /* Impede seleção de texto */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         :root {
             --bg: #050505;
             --card: #121214;
@@ -41,6 +50,7 @@
             color: var(--primary);
             margin-bottom: 20px;
             text-shadow: 0 0 15px rgba(255, 222, 0, 0.4);
+            text-transform: uppercase;
         }
 
         .input-group { margin-bottom: 15px; }
@@ -63,6 +73,7 @@
             box-sizing: border-box;
             outline: none;
             font-size: 15px;
+            user-select: text !important; /* Permite digitar nos campos */
         }
 
         select:focus, input:focus { border-color: var(--primary); }
@@ -84,7 +95,6 @@
 
         .btn-gerar:active { transform: scale(0.96); }
 
-        /* Resultado */
         .result-container {
             display: none;
             margin-top: 25px;
@@ -141,19 +151,19 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false">
 
-<div class="Painel">
-    <h1>PAINEL SENSI 200X</h1>
+<div class="panel">
+    <h1>Gerador de Sensi</h1>
 
     <div class="input-group">
         <label>MARCA DO CELULAR</label>
-        <input type="text" id="marca" placeholder="Ex: Samsung, Xiaomi, Motorola...">
+        <input type="text" id="marca" placeholder="Ex: Samsung, Apple...">
     </div>
 
     <div class="input-group">
         <label>MODELO DO CELULAR</label>
-        <input type="text" id="modelo" placeholder="Ex: Galaxy A32, Poco F3, iPhone 12...">
+        <input type="text" id="modelo" placeholder="Ex: S23, iPhone 15...">
     </div>
 
     <div class="input-group">
@@ -221,6 +231,13 @@
 </div>
 
 <script>
+// Bloqueia atalhos de desenvolvedor
+document.onkeydown = function(e) {
+    if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 73 || e.keyCode === 123)) {
+        return false;
+    }
+};
+
 function gerarSensi() {
     const marca = document.getElementById('marca').value;
     const modelo = document.getElementById('modelo').value;
@@ -228,7 +245,7 @@ function gerarSensi() {
     const tipo = document.getElementById('tipo_sensi').value;
 
     if (!marca || !modelo) {
-        alert("Por favor, preencha a marca e o modelo!");
+        alert("Preencha a marca e o modelo!");
         return;
     }
 
@@ -237,40 +254,33 @@ function gerarSensi() {
     let geral, red, m2x, m4x;
 
     if (tipo === 'alta') {
-        // Sensi Alta (Escala 200) - Foca em valores acima de 160
-        geral = sortear(170, 200);
-        red = sortear(160, 198);
-        m2x = sortear(175, 200);
-        m4x = sortear(180, 200);
+        geral = sortear(175, 200);
+        red = sortear(165, 198);
+        m2x = sortear(180, 200);
+        m4x = sortear(185, 200);
         document.getElementById('tipo-display').innerText = "SENSI ALTA (200X)";
         document.getElementById('tipo-display').style.backgroundColor = "#ffde00";
     } else {
-        // Sensi Baixa (Escala 200) - Foca em valores mais estáveis (abaixo de 130)
-        geral = sortear(85, 125);
-        red = sortear(90, 140);
-        m2x = sortear(100, 150);
-        m4x = sortear(110, 160);
+        geral = sortear(95, 130);
+        red = sortear(100, 145);
+        m2x = sortear(110, 155);
+        m4x = sortear(120, 165);
         document.getElementById('tipo-display').innerText = "SENSI BAIXA (ESTÁVEL)";
         document.getElementById('tipo-display').style.backgroundColor = "#00e5ff";
     }
 
-    // Exibindo resultados
     document.getElementById('res-geral').innerText = geral;
     document.getElementById('res-red').innerText = red;
     document.getElementById('res-2x').innerText = m2x;
     document.getElementById('res-4x').innerText = m4x;
-    document.getElementById('res-awm').innerText = sortear(40, 90);
-    document.getElementById('res-olho').innerText = sortear(100, 200);
-    
-    // Botão de atirar proporcional
-    document.getElementById('res-botao').innerText = sortear(42, 58) + "%";
+    document.getElementById('res-awm').innerText = sortear(35, 80);
+    document.getElementById('res-olho').innerText = sortear(120, 200);
+    document.getElementById('res-botao').innerText = sortear(42, 55) + "%";
 
-    // DPI/Ajuste conforme o sistema
     if (os === 'ios') {
-        const ciclos = sortear(8, 10);
-        document.getElementById('res-dpi').innerText = "Ciclos: " + ciclos + " / Refinado";
+        document.getElementById('res-dpi').innerText = "Ciclos: " + sortear(8, 10);
     } else {
-        const dpis = tipo === 'alta' ? [720, 800, 960, 1100, 1200] : [411, 480, 550, 600];
+        const dpis = tipo === 'alta' ? [600, 720, 800, 960] : [411, 480, 500, 550];
         document.getElementById('res-dpi').innerText = dpis[sortear(0, dpis.length - 1)];
     }
 
@@ -280,4 +290,5 @@ function gerarSensi() {
 </script>
 
 </body>
-</html>
+                    </html>
+    
