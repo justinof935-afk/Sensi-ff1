@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuxBlox - Robux</title>
+    <title>BuxBlox - Robux Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary-yellow: #e2ff00;
@@ -14,64 +16,183 @@
             --text-gray: #a0a0a0;
             --border-color: #2a2a2a;
             --success-green: #2ecc71;
+            --accent-purple: #4b2a70;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-white); padding-bottom: 50px; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-white); 
+            padding-bottom: 50px; 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animação de Entrada */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         header {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 15px; background-color: var(--bg-dark); border-bottom: 1px solid var(--border-color);
+            padding: 18px 25px; background-color: rgba(10, 10, 10, 0.95); 
+            border-bottom: 1px solid var(--border-color);
             position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(10px);
         }
-        .logo { background-color: var(--primary-yellow); color: black; padding: 5px 10px; font-weight: 900; }
-        .header-icons { display: flex; gap: 15px; align-items: center; }
 
-        .container { padding: 15px; }
-        .product-title { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
-        .location-tag { color: var(--text-gray); font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .logo { 
+            background-color: var(--primary-yellow); 
+            color: black; 
+            padding: 6px 14px; 
+            font-weight: 800; 
+            letter-spacing: -1px;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .logo:hover { transform: scale(1.05); cursor: pointer; }
 
-        .status-badges { display: flex; gap: 10px; margin-bottom: 20px; }
-        .badge { background: #1a1a1a; padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 5px; }
+        .header-icons { display: flex; gap: 20px; align-items: center; font-size: 1.1rem; }
+        .header-icons i { cursor: pointer; transition: var(--transition); }
+        .header-icons i:hover { color: var(--primary-yellow); }
 
-        /* Grid de Preços Idêntico à Foto */
-        .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .container { 
+            padding: 25px 20px; 
+            max-width: 600px; 
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .product-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        .location-tag { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+
+        .status-badges { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .badge { 
+            background: rgba(255,255,255,0.05); 
+            padding: 8px 14px; 
+            border-radius: 8px; 
+            font-size: 0.8rem; 
+            border: 1px solid var(--border-color); 
+            display: flex; align-items: center; gap: 8px;
+            transition: var(--transition);
+        }
+        .badge:hover { background: rgba(255,255,255,0.1); border-color: var(--text-gray); }
+
+        /* Price Grid Aprimorado */
+        .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
         .price-card {
-            border: 1px solid var(--border-color); padding: 10px; border-radius: 6px;
-            cursor: pointer; transition: 0.2s; background: transparent;
+            border: 1.5px solid var(--border-color); padding: 15px; border-radius: 12px;
+            cursor: pointer; transition: var(--transition); background: rgba(20,20,20,0.5);
+            position: relative; overflow: hidden;
         }
-        .price-card.active { border-color: var(--primary-yellow); background: var(--primary-yellow); color: black; position: relative; }
-        .price-card.active .amount, .price-card.active .value { color: black; }
-        .price-card.active::after { content: '✓'; position: absolute; top: 10px; right: 10px; font-weight: bold; }
+        .price-card:hover { border-color: var(--text-gray); transform: translateY(-2px); }
         
-        .price-card .amount { display: block; font-weight: bold; font-size: 0.85rem; color: var(--text-white); }
-        .price-card .value { display: block; font-size: 0.75rem; color: var(--success-green); font-weight: bold; }
+        .price-card.active { 
+            border-color: var(--primary-yellow); 
+            background: var(--primary-yellow); 
+            box-shadow: 0 0 20px rgba(226, 255, 0, 0.2);
+        }
+        
+        .price-card .amount { display: block; font-weight: 700; font-size: 0.9rem; color: var(--text-white); margin-bottom: 4px; }
+        .price-card .value { display: block; font-size: 0.8rem; color: var(--success-green); font-weight: 600; }
+        
+        .price-card.active .amount, .price-card.active .value { color: black; }
 
-        /* Preço e Quantidade */
-        .price-section { border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 20px; }
-        .price-display-large { font-size: 2rem; font-weight: bold; }
-        .price-subtext { color: var(--primary-yellow); font-size: 0.9rem; margin-bottom: 20px; }
+        /* Price Section */
+        .price-section { 
+            background: rgba(255,255,255,0.02);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-top: 30px; 
+        }
+        .price-display-large { font-size: 2.5rem; font-weight: 800; color: var(--text-white); }
+        .price-subtext { color: var(--primary-yellow); font-size: 1rem; margin-bottom: 25px; font-weight: 600; }
 
-        .qty-label { font-size: 0.9rem; margin-bottom: 10px; display: block; }
-        .qty-selector { display: flex; align-items: center; background: #1a1a1a; width: fit-content; border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 20px; }
-        .qty-btn { background: none; border: none; color: white; padding: 10px 20px; cursor: pointer; font-size: 1.2rem; }
-        .qty-val { padding: 0 20px; font-weight: bold; }
+        /* Quantity Selector */
+        .qty-label { font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; color: var(--text-gray); display: block; }
+        .qty-selector { 
+            display: flex; align-items: center; background: #000; 
+            width: fit-content; border-radius: 10px; border: 1px solid var(--border-color); 
+            margin-bottom: 25px; overflow: hidden;
+        }
+        .qty-btn { 
+            background: none; border: none; color: white; padding: 12px 20px; 
+            cursor: pointer; font-size: 1.2rem; transition: var(--transition);
+        }
+        .qty-btn:hover { background: rgba(255,255,255,0.1); }
+        .qty-val { width: 40px; text-align: center; font-weight: 800; font-size: 1.1rem; }
 
-        /* Barra de BNX Coins */
-        .bnx-bar { background: #1e112e; border: 1px solid #4b2a70; padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .bnx-text { font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .bnx-icon { color: #f39c12; }
+        /* BNX Bar */
+        .bnx-bar { 
+            background: linear-gradient(90deg, #1e112e, #2d1a45); 
+            border: 1px solid var(--accent-purple); 
+            padding: 15px 20px; border-radius: 12px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 20px;
+        }
+        .bnx-text { font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .bnx-icon { color: #f39c12; filter: drop-shadow(0 0 5px rgba(243, 156, 18, 0.5)); }
 
-        /* Botões de Ação */
-        .btn-add-cart { width: 100%; background: #1a1a1a; border: 1px solid var(--border-color); color: white; padding: 15px; font-weight: bold; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
-        .btn-buy-now { width: 100%; background: var(--primary-yellow); border: none; color: black; padding: 18px; font-weight: 900; border-radius: 6px; cursor: pointer; text-transform: uppercase; font-size: 1rem; }
+        /* Buttons */
+        .btn-add-cart { 
+            width: 100%; background: transparent; border: 1.5px solid var(--border-color); 
+            color: white; padding: 16px; font-weight: 700; border-radius: 12px; 
+            margin-bottom: 12px; cursor: pointer; transition: var(--transition);
+        }
+        .btn-add-cart:hover { border-color: var(--text-white); background: rgba(255,255,255,0.05); }
 
-        /* Modais */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
-        .modal-content { background: var(--card-bg); width: 90%; max-width: 400px; padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
-        .modal-content input { width: 100%; padding: 12px; margin-bottom: 20px; background: #000; border: 1px solid var(--border-color); color: white; border-radius: 4px; }
-        .btn-confirm { width: 100%; padding: 15px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; background: var(--primary-yellow); color: #000; }
-        .btn-wa { background: #25d366; color: #fff; text-decoration: none; display: none; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border-radius: 4px; font-weight: bold; }
+        .btn-buy-now { 
+            width: 100%; background: var(--primary-yellow); border: none; 
+            color: black; padding: 20px; font-weight: 800; border-radius: 12px; 
+            cursor: pointer; text-transform: uppercase; font-size: 1.05rem; 
+            transition: var(--transition); box-shadow: 0 4px 15px rgba(226, 255, 0, 0.2);
+        }
+        .btn-buy-now:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(226, 255, 0, 0.3); }
+
+        /* Modais Modernizados */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .modal-content { 
+            background: var(--card-bg); width: 92%; max-width: 420px; padding: 35px; 
+            border-radius: 24px; border: 1px solid var(--border-color); text-align: center;
+            animation: fadeInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-content input { 
+            width: 100%; padding: 16px; margin: 20px 0; background: #000; 
+            border: 1.5px solid var(--border-color); color: white; border-radius: 12px;
+            font-size: 1rem; outline: none; transition: var(--transition);
+        }
+        .modal-content input:focus { border-color: var(--primary-yellow); }
+        
+        /* Checkout Pagamento */
+        .checkout-title { text-align: left; font-size: 1.3rem; margin-bottom: 25px; font-weight: 800; }
+        .payment-option { 
+            display: flex; align-items: center; gap: 18px; background: rgba(0,0,0,0.3); 
+            border: 1.5px solid var(--border-color); padding: 20px; border-radius: 16px; 
+            margin-bottom: 15px; cursor: pointer; transition: var(--transition);
+        }
+        .payment-option:hover { border-color: var(--primary-yellow); background: rgba(226, 255, 0, 0.03); }
+        
+        .pix-icon-circle { 
+            width: 48px; height: 48px; background: #32bcad; border-radius: 14px; 
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem;
+        }
+
+        .btn-wa { 
+            background: #25d366; color: #fff; text-decoration: none; 
+            display: flex; align-items: center; justify-content: center; gap: 12px; 
+            width: 100%; padding: 18px; border-radius: 12px; font-weight: 800; 
+            margin-top: 15px; transition: var(--transition);
+        }
+        .btn-wa:hover { transform: scale(1.02); background: #20ba5a; }
+
     </style>
 </head>
 <body>
@@ -79,82 +200,61 @@
     <header>
         <i class="fas fa-bars"></i>
         <div class="logo">BUXBLOX</div>
-        <div class="header-icons"><i class="fas fa-shopping-cart"></i><i class="far fa-user"></i></div>
+        <div class="header-icons">
+            <i class="fas fa-shopping-cart"></i>
+            <i class="far fa-user"></i>
+        </div>
     </header>
 
     <div class="container">
-        <h1 class="product-title">Roblox</h1>
+        <h1 class="product-title">Robux</h1>
         <div class="location-tag"><i class="fas fa-map-marker-alt"></i> Resgatável apenas no Brasil</div>
 
         <div class="status-badges">
-            <div class="badge"><i class="fas fa-store"></i> Distribuidor oficial</div>
-            <div class="badge"><i class="fas fa-shield-alt"></i> Pagamento seguro</div>
+            <div class="badge"><i class="fas fa-certificate" style="color: var(--primary-yellow);"></i> Distribuidor oficial</div>
+            <div class="badge"><i class="fas fa-bolt" style="color: #32bcad;"></i> Entrega Automática</div>
         </div>
 
         <div class="price-grid" id="grid">
             <div class="price-card active" onclick="select(this, '415 Robux', 25.00)">
-                <span class="amount">R$ 25 (415 Robux)</span>
+                <span class="amount">415 Robux</span>
                 <span class="value">R$ 25,00</span>
             </div>
-            <div class="price-card" onclick="select(this, '500 Robux', 29.90)">
-                <span class="amount">R$ 29.9 (500 Robux)</span>
-                <span class="value">R$ 29,90</span>
-            </div>
-            <div class="price-card" onclick="select(this, '660 Robux', 40.00)">
-                <span class="amount">R$ 40 (660 Robux)</span>
-                <span class="value">R$ 40,00</span>
-            </div>
             <div class="price-card" onclick="select(this, '1000 Robux', 59.00)">
-                <span class="amount">R$ 59 (1000 Robux)</span>
+                <span class="amount">1000 Robux</span>
                 <span class="value">R$ 59,00</span>
             </div>
-            <div class="price-card" onclick="select(this, '1149 Robux', 85.00)">
-                <span class="amount">R$ 85 (1149 Robux)</span>
-                <span class="value">R$ 85,00</span>
-            </div>
-            <div class="price-card" onclick="select(this, '1349 Robux', 100.00)">
-                <span class="amount">R$ 100 (1349 Robux)</span>
-                <span class="value">R$ 100,00</span>
-            </div>
             <div class="price-card" onclick="select(this, '2000 Robux', 117.90)">
-                <span class="amount">R$ 117.9 (2000 Robux)</span>
+                <span class="amount">2000 Robux</span>
                 <span class="value">R$ 117,90</span>
             </div>
-            <div class="price-card" onclick="select(this, '2316 Robux', 165.00)">
-                <span class="amount">R$ 165 (2316 Robux)</span>
-                <span class="value">R$ 165,00</span>
-            </div>
-            <div class="price-card" onclick="select(this, '2700 Robux', 200.00)">
-                <span class="amount">R$ 200 (2700 Robux)</span>
-                <span class="value">R$ 200,00</span>
-            </div>
             <div class="price-card" onclick="select(this, '5250 Robux', 294.90)">
-                <span class="amount">R$ 294.90 (5250 Robux)</span>
+                <span class="amount">5250 Robux</span>
                 <span class="value">R$ 294,90</span>
-            </div>
-            <div class="price-card" style="grid-column: span 2; text-align: center;">
-                <span class="amount">Outro valor</span>
             </div>
         </div>
 
         <div class="price-section">
-            <p style="font-size: 0.8rem; color: var(--text-gray);">Preço</p>
+            <p style="font-size: 0.85rem; color: var(--text-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Preço Total</p>
             <div class="price-display-large" id="display-price">R$ 25,00</div>
-            <div class="price-subtext" id="display-desc">R$ 25 (415 Robux)</div>
+            <div class="price-subtext" id="display-desc">415 Robux (Unitário)</div>
 
-            <label class="qty-label">Quantidade</label>
+            <label class="qty-label">Escolha a Quantidade</label>
             <div class="qty-selector">
-                <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                <button class="qty-btn" onclick="updateQty(-1)"><i class="fas fa-minus"></i></button>
                 <span class="qty-val" id="qty">1</span>
-                <button class="qty-btn" onclick="updateQty(1)">+</button>
+                <button class="qty-btn" onclick="updateQty(1)"><i class="fas fa-plus"></i></button>
             </div>
 
             <div class="bnx-bar">
-                <span class="bnx-text"><i class="fas fa-coins bnx-icon"></i> BNX Coins <span id="bnx-val">25</span></span>
-                <i class="fas fa-info-circle" style="color: #4b2a70;"></i>
+                <span class="bnx-text">
+                    <i class="fas fa-coins bnx-icon"></i> 
+                    Você ganha <span id="bnx-val" style="color: var(--primary-yellow); margin: 0 4px;">25</span> B-Coins
+                </span>
+                <i class="fas fa-info-circle" style="color: rgba(255,255,255,0.3); cursor: pointer;"></i>
             </div>
 
-            <button class="btn-add-cart" onclick="alert('Adicionado ao carrinho!')">Adicionar ao carrinho</button>
+            <button class="btn-add-cart" onclick="triggerCart()">Adicionar ao carrinho</button>
             <button class="btn-buy-now" onclick="openModal()">Comprar agora</button>
         </div>
     </div>
@@ -162,13 +262,40 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <div id="step1">
-                <h2>Dados do Jogador</h2>
-                <input type="text" id="nick" placeholder="Nick no Roblox">
-                <button class="btn-confirm" onclick="confirmData()">Confirmar Pedido</button>
+                <i class="fas fa-user-circle" style="font-size: 3rem; color: var(--primary-yellow); margin-bottom: 15px;"></i>
+                <h2 style="font-weight: 800;">Identificação</h2>
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin-top: 10px;">Informe seu Nick do Roblox para vincular a entrega.</p>
+                <input type="text" id="nick" placeholder="Ex: PlayerRoblox_123">
+                <button class="btn-confirm" onclick="goToPayment()" style="padding: 18px; border-radius: 12px; font-size: 1rem;">Prosseguir para Pagamento</button>
             </div>
+
+            <div id="step-payment" style="display: none;">
+                <p class="checkout-title">Meio de Pagamento</p>
+                
+                <div class="payment-option" onclick="confirmData()">
+                    <div class="pix-icon-circle"><i class="fab fa-pix"></i></div>
+                    <div style="text-align: left;">
+                        <span style="font-weight: 800; display: block; font-size: 1.1rem;">Pix</span>
+                        <small style="color: var(--success-green); font-weight: 600;">Aprovação Instantânea</small>
+                    </div>
+                </div>
+
+                <div class="payment-option" style="opacity: 0.4; cursor: not-allowed;">
+                    <i class="fas fa-credit-card" style="font-size: 1.5rem; margin-left: 10px;"></i>
+                    <div style="text-align: left; margin-left: 5px;">
+                        <span style="font-weight: 700; display: block;">Cartão / Boleto</span>
+                        <small>Manutenção técnica</small>
+                    </div>
+                </div>
+            </div>
+
             <div id="step2" style="display: none;">
-                <h2 style="color: var(--primary-yellow);">Pedido Pronto!</h2>
-                <a href="#" id="wa-link" class="btn-wa"><i class="fab fa-whatsapp"></i> MANDAR MENSAGEM</a>
+                <div style="background: rgba(46, 204, 113, 0.1); padding: 20px; border-radius: 20px; margin-bottom: 20px;">
+                    <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success-green);"></i>
+                    <h2 style="margin-top: 10px;">Quase lá!</h2>
+                </div>
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px;">Seu pedido foi pré-aprovado. Clique abaixo para gerar o QR Code e finalizar no WhatsApp.</p>
+                <a href="#" id="wa-link" class="btn-wa"><i class="fab fa-whatsapp"></i> CONCLUIR PEDIDO</a>
             </div>
         </div>
     </div>
@@ -194,23 +321,52 @@
 
         function updateDisplay() {
             let total = unitPrice * quantity;
-            document.getElementById('display-price').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-            document.getElementById('display-desc').innerText = `R$ ${unitPrice.toFixed(2).replace('.', ',')} (${currentRobux})`;
+            const priceEl = document.getElementById('display-price');
+            
+            // Pequeno efeito de "pulo" no preço ao mudar
+            priceEl.style.transform = 'scale(1.1)';
+            setTimeout(() => priceEl.style.transform = 'scale(1)', 100);
+
+            priceEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('display-desc').innerText = `${currentRobux} (Valor Unitário)`;
             document.getElementById('qty').innerText = quantity;
             document.getElementById('bnx-val').innerText = Math.floor(total);
         }
 
-        function openModal() { document.getElementById('modal').style.display = 'flex'; }
+        function openModal() { 
+            document.getElementById('modal').style.display = 'flex'; 
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step-payment').style.display = 'none';
+            document.getElementById('step2').style.display = 'none';
+        }
+
+        function goToPayment() {
+            const nick = document.getElementById('nick').value;
+            if(!nick) {
+                document.getElementById('nick').style.borderColor = 'red';
+                return alert("Por favor, digite seu nick para continuarmos!");
+            }
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step-payment').style.display = 'block';
+        }
 
         function confirmData() {
             const nick = document.getElementById('nick').value;
-            if(!nick) return alert("Nick obrigatório!");
             const fone = "5515996637490";
-            const msg = `Olá! Quero comprar Robux.%0A%0A*Pacote:* ${currentRobux}%0A*Qtd:* ${quantity}%0A*Total:* ${document.getElementById('display-price').innerText}%0A*Nick:* ${nick}`;
+            const msg = `🚀 *NOVO PEDIDO - BUXBLOX*%0A%0A👤 *Nick:* ${nick}%0A📦 *Produto:* ${currentRobux}%0A🔢 *Quantidade:* ${quantity}%0A💰 *Total:* ${document.getElementById('display-price').innerText}%0A💳 *Método:* PIX`;
+            
             document.getElementById('wa-link').href = `https://wa.me/${fone}?text=${msg}`;
-            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step-payment').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
-            document.getElementById('wa-link').style.display = 'flex';
+        }
+
+        function triggerCart() {
+            const btn = document.querySelector('.btn-add-cart');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            setTimeout(() => {
+                btn.innerHTML = 'Adicionado! <i class="fas fa-check"></i>';
+                setTimeout(() => btn.innerText = 'Adicionar ao carrinho', 2000);
+            }, 800);
         }
 
         window.onclick = (e) => { if(e.target.className === 'modal') document.getElementById('modal').style.display='none'; }
