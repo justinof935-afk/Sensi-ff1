@@ -3,342 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuxBlox - Robux Premium</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>BuxBlox - Premium Robux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-yellow: #e2ff00;
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
-            --text-white: #ffffff;
-            --text-gray: #a0a0a0;
-            --border-color: #2a2a2a;
-            --success-green: #2ecc71;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #e2ff00;
+            --primary-hover: #c9e300;
+            --bg: #050505;
+            --card: #111111;
+            --card-hover: #1a1a1a;
+            --text: #ffffff;
+            --text-dim: #a1a1a1;
+            --accent: #32bcad;
+            --danger: #ff4747;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-white); padding-bottom: 50px; overflow-x: hidden; line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, rgba(226, 255, 0, 0.05), transparent),
+                              radial-gradient(circle at bottom left, rgba(50, 188, 173, 0.05), transparent);
+            background-attachment: fixed;
+        }
 
-        /* HEADER & LOGO */
-        header { display: flex; align-items: center; justify-content: space-between; padding: 18px 25px; background-color: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-        .logo { background-color: var(--primary-yellow); color: black; padding: 6px 14px; font-weight: 800; letter-spacing: -1px; border-radius: 2px; }
-        
-        /* AUTH SYSTEM */
-        .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .auth-box { background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); width: 90%; max-width: 400px; text-align: center; }
-        .auth-box input { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid var(--border-color); color: white; border-radius: 8px; outline: none; }
-        .auth-box input:focus { border-color: var(--primary-yellow); }
-        
-        /* SIDEBAR */
-        .sidebar { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #0a0a0a; border-right: 1px solid var(--border-color); z-index: 2000; transition: 0.3s; padding: 25px; }
+        /* --- AUTH SYSTEM STYLE --- */
+        .auth-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; 
+        }
+        .auth-box { 
+            background: var(--card); padding: 40px; border-radius: 28px; 
+            border: 1px solid var(--border); width: 90%; max-width: 400px; 
+            text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .auth-box h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 25px; letter-spacing: -1px; }
+        .auth-box input { 
+            width: 100%; padding: 16px; margin-bottom: 12px; border-radius: 12px;
+            background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white;
+            transition: 0.3s;
+        }
+        .auth-box input:focus { border-color: var(--primary); outline: none; background: rgba(0,0,0,0.5); }
+
+        /* --- NAVIGATION --- */
+        header { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 20px 6%; background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { 
+            background: var(--primary); color: #000; padding: 8px 16px; 
+            font-weight: 800; border-radius: 8px; font-size: 0.9rem;
+        }
+
+        .sidebar { 
+            position: fixed; top: 0; left: -320px; width: 300px; height: 100%; 
+            background: var(--card); border-right: 1px solid var(--border); 
+            z-index: 2000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 40px 30px; 
+        }
         .sidebar.open { left: 0; }
+        .sidebar h3 { font-size: 1.4rem; margin-bottom: 5px; }
+        .nav-item { 
+            padding: 15px 0; border-bottom: 1px solid var(--border); 
+            display: flex; align-items: center; gap: 12px; cursor: pointer; transition: 0.3s;
+        }
+        .nav-item:hover { color: var(--primary); }
+
+        /* --- MAIN CONTENT --- */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .hero { text-align: center; margin-bottom: 40px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
         
-        /* CONTENT */
-        .container { padding: 25px 20px; max-width: 600px; margin: 0 auto; }
-        .product-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; }
-        .location-tag { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        .price-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 15px; margin-bottom: 30px; 
+        }
+        .price-card { 
+            background: var(--card); border: 1px solid var(--border); padding: 25px 20px;
+            border-radius: 20px; cursor: pointer; transition: 0.3s; text-align: center;
+        }
+        .price-card:hover { transform: translateY(-5px); border-color: rgba(226, 255, 0, 0.3); }
+        .price-card.active { background: var(--primary); border-color: var(--primary); }
+        .price-card.active * { color: #000 !px; }
+        .price-card.active .value { color: #000; opacity: 0.8; }
+        .price-card .amount { display: block; font-size: 1.2rem; font-weight: 800; margin-bottom: 5px; }
+        .price-card .value { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
 
-        /* GRID & CARDS */
-        .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
-        .price-card { border: 1.5px solid var(--border-color); padding: 15px; border-radius: 12px; cursor: pointer; transition: var(--transition); background: rgba(20,20,20,0.5); }
-        .price-card.active { border-color: var(--primary-yellow); background: var(--primary-yellow); color: black; }
-        .price-card .amount { display: block; font-weight: 700; font-size: 0.9rem; }
-        .price-card .value { display: block; font-size: 0.8rem; color: var(--success-green); }
-        .price-card.active .value { color: #000; font-weight: bold; }
+        .checkout-box { 
+            background: var(--glass); border: 1px solid var(--border); 
+            padding: 30px; border-radius: 24px; backdrop-filter: blur(10px);
+        }
+        .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        
+        .qty-control { 
+            display: flex; align-items: center; background: #000; 
+            border-radius: 14px; border: 1px solid var(--border); overflow: hidden;
+        }
+        .qty-btn { 
+            background: none; border: none; color: white; padding: 12px 18px; 
+            cursor: pointer; transition: 0.2s; 
+        }
+        .qty-btn:hover { background: var(--glass); }
 
-        /* UI ELEMENTS */
-        .price-section { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 16px; border: 1px solid var(--border-color); }
-        .price-display-large { font-size: 2.5rem; font-weight: 800; }
-        .qty-selector { display: flex; align-items: center; background: #000; width: fit-content; border-radius: 10px; border: 1px solid var(--border-color); margin: 20px 0; }
-        .qty-btn { background: none; border: none; color: white; padding: 12px 20px; cursor: pointer; font-size: 1.2rem; }
-        .btn-buy-now { width: 100%; background: var(--primary-yellow); border: none; color: black; padding: 20px; font-weight: 800; border-radius: 12px; cursor: pointer; text-transform: uppercase; }
+        .btn-main { 
+            width: 100%; padding: 20px; border-radius: 16px; border: none;
+            background: var(--primary); color: #000; font-weight: 800;
+            font-size: 1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+        }
+        .btn-main:hover { background: var(--primary-hover); transform: scale(1.02); }
 
-        /* MODALS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
-        .modal-content { background: var(--card-bg); width: 92%; max-width: 420px; padding: 35px; border-radius: 24px; text-align: center; border: 1px solid var(--border-color); }
-        .btn-wa { background: #25d366; color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px; border-radius: 12px; font-weight: 800; margin-top: 10px; font-size: 0.8rem; }
+        /* --- MODALS --- */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); z-index: 3000; align-items: center; justify-content: center; 
+            backdrop-filter: blur(10px);
+        }
+        .modal-content { 
+            background: var(--card); width: 90%; max-width: 450px; 
+            padding: 40px; border-radius: 32px; border: 1px solid var(--border); text-align: center;
+        }
 
-        /* ADMIN TABS */
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { flex: 1; padding: 10px; background: #222; border: 1px solid var(--border-color); color: white; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
-        .tab-btn.active { background: var(--primary-yellow); color: black; font-weight: bold; }
-        .admin-only { display: none; margin-top: 15px; color: var(--primary-yellow); cursor: pointer; font-weight: 600; }
+        .tab-system { display: flex; gap: 10px; margin-bottom: 25px; background: #000; padding: 5px; border-radius: 12px; }
+        .tab-btn { 
+            flex: 1; padding: 12px; border: none; background: none; color: var(--text-dim); 
+            cursor: pointer; font-weight: 600; border-radius: 8px; transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--primary); color: #000; }
+
+        .wa-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            width: 100%; padding: 18px; border-radius: 14px; text-decoration: none;
+            color: white; font-weight: 700; margin-bottom: 12px; transition: 0.3s;
+        }
     </style>
 </head>
 <body>
 
     <div id="auth-overlay" class="auth-overlay">
         <div class="auth-box" id="login-box">
-            <h2 style="color: var(--primary-yellow); margin-bottom: 20px;">BUXBLOX LOGIN</h2>
-            <input type="email" id="login-email" placeholder="Seu Email">
-            <input type="password" id="login-password" placeholder="Sua Senha">
-            <button class="btn-buy-now" onclick="fazerLogin()">Entrar</button>
-            <p onclick="toggleAuth('register')" style="margin-top: 15px; cursor: pointer; text-decoration: underline; font-size: 0.9rem;">Não tem conta? Cadastre-se</p>
+            <h2>Bem-vindo de volta</h2>
+            <input type="email" id="login-email" placeholder="E-mail">
+            <input type="password" id="login-password" placeholder="Senha">
+            <button class="btn-main" onclick="handleLogin()">Acessar Conta</button>
+            <p onclick="toggleAuth('reg')" style="margin-top: 20px; cursor: pointer; color: var(--text-dim);">Novo por aqui? <span style="color: var(--primary);">Crie sua conta</span></p>
         </div>
 
         <div class="auth-box" id="register-box" style="display: none;">
-            <h2 style="color: var(--primary-yellow); margin-bottom: 20px;">CRIAR CONTA</h2>
-            <input type="text" id="reg-name" placeholder="Seu Nome">
-            <input type="email" id="reg-email" placeholder="Seu Email">
-            <input type="password" id="reg-password" placeholder="Crie uma Senha">
-            <button class="btn-buy-now" onclick="fazerCadastro()">Concluir Cadastro</button>
-            <p onclick="toggleAuth('login')" style="margin-top: 15px; cursor: pointer; text-decoration: underline; font-size: 0.9rem;">Já tem conta? Login</p>
+            <h2>Criar nova conta</h2>
+            <input type="text" id="reg-name" placeholder="Nome completo">
+            <input type="email" id="reg-email" placeholder="Seu melhor e-mail">
+            <input type="password" id="reg-pass" placeholder="Crie uma senha">
+            <button class="btn-main" onclick="handleRegister()">Concluir Cadastro</button>
+            <p onclick="toggleAuth('login')" style="margin-top: 20px; cursor: pointer; color: var(--text-dim);">Já tem conta? <span style="color: var(--primary);">Fazer login</span></p>
         </div>
     </div>
 
-    <div id="main-content" style="display: none;">
+    <div id="app" style="display: none;">
         <header>
-            <i class="fas fa-bars" onclick="abrirMenu()" style="cursor: pointer; font-size: 1.2rem;"></i>
+            <i class="fa-solid fa-bars-staggered" onclick="openNav()" style="cursor: pointer; font-size: 1.4rem;"></i>
             <div class="logo">BUXBLOX</div>
-            <i class="fas fa-shopping-cart" style="font-size: 1.2rem;"></i>
+            <div style="width: 24px;"></div>
         </header>
 
-        <div id="sidebar" class="sidebar">
-            <div onclick="fecharMenu()" style="text-align: right; cursor: pointer;"><i class="fas fa-times"></i></div>
-            <h3 id="user-display-name" style="margin-top: 20px;">Nome do Usuário</h3>
-            <p id="user-role-badge" style="font-size: 0.8rem; color: var(--text-gray); margin-bottom: 20px;">Usuário</p>
+        <nav id="sidebar" class="sidebar">
+            <div style="text-align: right;"><i class="fa-solid fa-xmark" onclick="closeNav()" style="cursor: pointer; font-size: 1.5rem;"></i></div>
+            <h3 id="u-name">Nome</h3>
+            <p id="u-badge" style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 30px;">Membro</p>
             
-            <div class="admin-only" id="admin-button" onclick="abrirAdminPanel()">
-                <i class="fas fa-cogs"></i> Painel Admin
+            <div class="nav-item" id="admin-link" style="display: none;" onclick="openAdmin()">
+                <i class="fa-solid fa-shield-halved"></i> Painel de Controle
             </div>
-
-            <div onclick="fazerLogout()" style="margin-top: 30px; color: #ff4d4d; cursor: pointer; font-weight: bold;">
-                <i class="fas fa-sign-out-alt"></i> Sair da Conta
+            
+            <div class="nav-item" onclick="handleLogout()" style="color: var(--danger); border: none; margin-top: 20px;">
+                <i class="fa-solid fa-right-from-bracket"></i> Sair da conta
             </div>
-        </div>
+        </nav>
 
         <div class="container">
-            <h1 class="product-title">Robux</h1>
-            <div class="location-tag"><i class="fas fa-map-marker-alt"></i> Resgatável no Brasil</div>
-            
-            <div class="price-grid" id="grid">
-                </div>
+            <div class="hero">
+                <h1>Robux Premium</h1>
+                <p style="color: var(--text-dim);">Entrega imediata via Gamepass ou Group</p>
+            </div>
 
-            <div class="price-section">
-                <div class="price-display-large" id="display-price">R$ 0,00</div>
-                <div class="qty-selector">
-                    <button class="qty-btn" onclick="updateQty(-1)"><i class="fas fa-minus"></i></button>
-                    <span class="qty-val" id="qty" style="font-weight: 800; font-size: 1.2rem;">1</span>
-                    <button class="qty-btn" onclick="updateQty(1)"><i class="fas fa-plus"></i></button>
+            <div class="price-grid" id="product-grid"></div>
+
+            <div class="checkout-box">
+                <div class="total-row">
+                    <div>
+                        <p style="color: var(--text-dim); font-size: 0.8rem;">Valor total</p>
+                        <h2 id="total-display" style="font-size: 2rem;">R$ 0,00</h2>
+                    </div>
+                    <div class="qty-control">
+                        <button class="qty-btn" onclick="changeQty(-1)"><i class="fa-solid fa-minus"></i></button>
+                        <span id="qty-val" style="padding: 0 15px; font-weight: 800;">1</span>
+                        <button class="qty-btn" onclick="changeQty(1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
                 </div>
-                <button class="btn-buy-now" onclick="openModalCompra()">Comprar Agora</button>
+                <button class="btn-main" onclick="openPurchase()">Finalizar Pedido</button>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="modal-admin">
+    <div id="modal-admin" class="modal">
         <div class="modal-content">
-            <h2 style="color: #32bcad; margin-bottom: 20px;">Painel Admin</h2>
-            <div class="admin-tabs">
-                <button class="tab-btn active" id="btn-tab-precos" onclick="switchAdminTab('precos')">Preços</button>
-                <button class="tab-btn" id="btn-tab-admin" onclick="switchAdminTab('admin')">Dar Admin</button>
+            <div class="tab-system">
+                <button class="tab-btn active" id="tab-p" onclick="switchTab('p')">Preços</button>
+                <button class="tab-btn" id="tab-a" onclick="switchTab('a')">Acessos</button>
             </div>
-            <div id="view-precos">
-                <div id="admin-prices-list" style="margin: 20px 0; text-align: left;"></div>
-                <button class="btn-buy-now" style="background: #32bcad;" onclick="salvarPrecosAdmin()">Salvar Preços</button>
+
+            <div id="pane-precos">
+                <div id="admin-list" style="text-align: left; margin-bottom: 20px; max-height: 300px; overflow-y: auto;"></div>
+                <button class="btn-main" onclick="saveAdminPrices()">Atualizar Tabela</button>
             </div>
-            <div id="view-dar-admin" style="display: none;">
-                <input type="email" id="new-admin-email" placeholder="Email da pessoa" style="width: 100%; padding: 15px; background: #000; border: 1px solid var(--border-color); color: white; border-radius: 8px;">
-                <button class="btn-buy-now" onclick="promoverUsuario()">Promover</button>
+
+            <div id="pane-admin" style="display: none;">
+                <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px;">Insira o e-mail para dar permissão de administrador:</p>
+                <input type="email" id="admin-mail-input" placeholder="exemplo@gmail.com" 
+                       style="width: 100%; padding: 15px; border-radius: 12px; background: #000; border: 1px solid var(--border); color: white; margin-bottom: 15px;">
+                <button class="btn-main" onclick="addAdminAccess()">Confirmar Acesso</button>
             </div>
-            <button onclick="fecharAdminPanel()" style="background: none; border: none; color: white; margin-top: 15px; cursor: pointer;">Fechar</button>
+
+            <p onclick="closeAdmin()" style="margin-top: 20px; cursor: pointer; font-size: 0.9rem; color: var(--text-dim);">Voltar ao início</p>
         </div>
     </div>
 
-    <div class="modal" id="modal-compra">
+    <div id="modal-buy" class="modal">
         <div class="modal-content">
-            <div id="compra-passo1">
+            <div id="buy-step-1">
                 <h2>Seu Nick</h2>
-                <input type="text" id="roblox-nick" placeholder="Nick do Roblox" style="width: 100%; padding: 15px; margin: 20px 0; background: #000; border: 1px solid var(--border-color); color: white; border-radius: 8px;">
-                <button class="btn-buy-now" onclick="irParaPagamento()">Próximo</button>
+                <p style="color: var(--text-dim); margin-bottom: 20px;">Precisamos do seu nome no Roblox</p>
+                <input type="text" id="rbx-nick" placeholder="Digite seu nick..." style="width: 100%; padding: 16px; border-radius: 12px; background: #000; border: 1px solid var(--border); color: white; margin-bottom: 20px;">
+                <button class="btn-main" onclick="goStep2()">Ver Atendentes</button>
             </div>
-            <div id="compra-passo2" style="display: none;">
-                <h2 style="color: var(--success-green);">Escolha um número:</h2>
-                <p style="font-size: 0.8rem; margin: 15px 0;">Para finalizar, escolha um dos atendentes abaixo:</p>
-                <a href="#" id="wa-1" class="btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> ATENDENTE 1 (15) 99814-9457</a>
-                <a href="#" id="wa-2" class="btn-wa" target="_blank" style="background: #128C7E;"><i class="fab fa-whatsapp"></i> ATENDENTE 2 (15) 99663-7490</a>
-                <button onclick="fecharModalCompra()" style="background: none; border: none; color: gray; margin-top: 15px; cursor: pointer;">Cancelar</button>
+            <div id="buy-step-2" style="display: none;">
+                <h2>Quase lá!</h2>
+                <p style="color: var(--text-dim); margin-bottom: 25px;">Escolha um canal para enviar o comprovante:</p>
+                <a href="#" id="wa-link1" class="wa-btn" style="background: #25D366;"><i class="fa-brands fa-whatsapp"></i> Atendimento Principal</a>
+                <a href="#" id="wa-link2" class="wa-btn" style="background: #128C7E;"><i class="fa-brands fa-whatsapp"></i> Atendimento Secundário</a>
+                <p onclick="closePurchase()" style="margin-top: 20px; cursor: pointer; color: var(--text-dim);">Cancelar</p>
             </div>
         </div>
     </div>
 
     <script>
-        const MASTER_EMAIL = "justinof935@gmail.com";
+        // --- DATABASE LOCAL ---
+        const OWNER = "justinof935@gmail.com";
 
-        // Inicializar Storage
-        if(!localStorage.getItem('bux_users')) localStorage.setItem('bux_users', JSON.stringify([]));
-        if(!localStorage.getItem('bux_pkgs')) {
-            localStorage.setItem('bux_pkgs', JSON.stringify([
-                { id: 1, name: "415 Robux", price: 25.00 },
-                { id: 2, name: "1000 Robux", price: 59.00 },
-                { id: 3, name: "2000 Robux", price: 117.90 },
-                { id: 4, name: "5250 Robux", price: 294.90 }
+        if(!localStorage.getItem('bx_users')) localStorage.setItem('bx_users', JSON.stringify([]));
+        if(!localStorage.getItem('bx_admins')) localStorage.setItem('bx_admins', JSON.stringify([OWNER]));
+        if(!localStorage.getItem('bx_items')) {
+            localStorage.setItem('bx_items', JSON.stringify([
+                {id: 1, label: "415 Robux", val: 25.00},
+                {id: 2, label: "1000 Robux", val: 59.00},
+                {id: 3, label: "2000 Robux", val: 115.00},
+                {id: 4, label: "5250 Robux", val: 290.00}
             ]));
         }
 
-        let selectedPkg = null;
-        let quantity = 1;
+        let currentUser = JSON.parse(localStorage.getItem('bx_logged'));
+        let selectedItem = null;
+        let qty = 1;
 
-        // --- SISTEMA DE TELAS ---
-        function toggleAuth(type) {
-            document.getElementById('login-box').style.display = type === 'login' ? 'block' : 'none';
-            document.getElementById('register-box').style.display = type === 'register' ? 'block' : 'none';
+        // --- AUTH LOGIC ---
+        function toggleAuth(m) {
+            document.getElementById('login-box').style.display = m === 'login' ? 'block' : 'none';
+            document.getElementById('register-box').style.display = m === 'reg' ? 'block' : 'none';
         }
 
-        function fazerCadastro() {
-            const n = document.getElementById('reg-name').value.trim();
-            const e = document.getElementById('reg-email').value.trim().toLowerCase();
-            const p = document.getElementById('reg-password').value.trim();
+        function handleRegister() {
+            const n = document.getElementById('reg-name').value;
+            const e = document.getElementById('reg-email').value.toLowerCase().trim();
+            const p = document.getElementById('reg-pass').value;
 
             if(!n || !e || !p) return alert("Preencha todos os campos!");
-
-            let users = JSON.parse(localStorage.getItem('bux_users'));
-            if(users.find(u => u.email === e)) return alert("Email já cadastrado!");
-
-            users.push({ name: n, email: e, pass: p, role: (e === MASTER_EMAIL ? 'admin' : 'user') });
-            localStorage.setItem('bux_users', JSON.stringify(users));
             
-            alert("Cadastro realizado! Agora entre com seus dados.");
+            let users = JSON.parse(localStorage.getItem('bx_users'));
+            if(users.find(u => u.email === e)) return alert("E-mail já cadastrado!");
+
+            users.push({name: n, email: e, pass: p});
+            localStorage.setItem('bx_users', JSON.stringify(users));
+            alert("Conta criada! Faça seu login.");
             toggleAuth('login');
         }
 
-        function fazerLogin() {
-            const e = document.getElementById('login-email').value.trim().toLowerCase();
-            const p = document.getElementById('login-password').value.trim();
+        function handleLogin() {
+            const e = document.getElementById('login-email').value.toLowerCase().trim();
+            const p = document.getElementById('login-password').value;
 
-            let users = JSON.parse(localStorage.getItem('bux_users'));
-            const user = users.find(u => u.email === e && u.pass === p);
+            let users = JSON.parse(localStorage.getItem('bx_users'));
+            let u = users.find(user => user.email === e && user.pass === p);
 
-            if(user) {
-                localStorage.setItem('bux_logged', JSON.stringify(user));
-                renderApp();
+            // Verificação especial para o dono
+            if(e === OWNER && p === "123") { // Adicione uma senha padrão se o dono não existir
+                u = {name: "Dono Master", email: OWNER};
+            }
+
+            if(u) {
+                localStorage.setItem('bx_logged', JSON.stringify(u));
+                location.reload();
             } else {
-                alert("Email ou Senha incorretos!");
+                alert("Dados incorretos!");
             }
         }
 
-        function renderApp() {
-            const user = JSON.parse(localStorage.getItem('bux_logged'));
-            if(!user) return;
-
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('user-display-name').innerText = user.name;
-
-            if(user.role === 'admin' || user.email === MASTER_EMAIL) {
-                document.getElementById('admin-button').style.display = 'block';
-                document.getElementById('user-role-badge').innerText = 'Administrador';
-                document.getElementById('user-role-badge').style.color = 'var(--primary-yellow)';
-            }
-            carregarProdutos();
-        }
-
-        // --- LOJA ---
-        function carregarProdutos() {
-            const grid = document.getElementById('grid');
-            const pkgs = JSON.parse(localStorage.getItem('bux_pkgs'));
-            grid.innerHTML = '';
-
-            pkgs.forEach((p, i) => {
-                const card = document.createElement('div');
-                card.className = `price-card ${i === 0 ? 'active' : ''}`;
-                card.innerHTML = `<span class="amount">${p.name}</span><span class="value">R$ ${p.price.toFixed(2)}</span>`;
-                card.onclick = () => {
-                    document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
-                    selectedPkg = p;
-                    updateTotal();
-                };
-                grid.appendChild(card);
-                if(i === 0) { selectedPkg = p; updateTotal(); }
-            });
-        }
-
-        function updateQty(v) {
-            quantity = Math.max(1, quantity + v);
-            document.getElementById('qty').innerText = quantity;
-            updateTotal();
-        }
-
-        function updateTotal() {
-            if(!selectedPkg) return;
-            const total = (selectedPkg.price * quantity).toFixed(2);
-            document.getElementById('display-price').innerText = `R$ ${total.replace('.', ',')}`;
-        }
-
-        // --- MODAIS ---
-        function openModalCompra() { document.getElementById('modal-compra').style.display = 'flex'; }
-        function fecharModalCompra() { 
-            document.getElementById('modal-compra').style.display = 'none';
-            document.getElementById('compra-passo1').style.display = 'block';
-            document.getElementById('compra-passo2').style.display = 'none';
-        }
-
-        function irParaPagamento() {
-            const nick = document.getElementById('roblox-nick').value.trim();
-            if(!nick) return alert("Digite seu nick!");
-
-            const total = (selectedPkg.price * quantity).toFixed(2);
-            const texto = encodeURIComponent(`Olá! Quero comprar:\n📦 Pacote: ${selectedPkg.name}\n🔢 Qtd: ${quantity}\n👤 Nick: ${nick}\n💰 Total: R$ ${total}`);
-            
-            document.getElementById('wa-1').href = `https://wa.me/5515998149457?text=${texto}`;
-            document.getElementById('wa-2').href = `https://wa.me/5515996637490?text=${texto}`;
-
-            document.getElementById('compra-passo1').style.display = 'none';
-            document.getElementById('compra-passo2').style.display = 'block';
-        }
-
-        // --- ADMIN ---
-        function switchAdminTab(t) {
-            document.getElementById('view-precos').style.display = t === 'precos' ? 'block' : 'none';
-            document.getElementById('view-dar-admin').style.display = t === 'admin' ? 'block' : 'none';
-            document.getElementById('btn-tab-precos').classList.toggle('active', t === 'precos');
-            document.getElementById('btn-tab-admin').classList.toggle('active', t === 'admin');
-        }
-
-        function abrirAdminPanel() {
-            document.getElementById('modal-admin').style.display = 'flex';
-            const list = document.getElementById('admin-prices-list');
-            const pkgs = JSON.parse(localStorage.getItem('bux_pkgs'));
-            list.innerHTML = '';
-            pkgs.forEach(p => {
-                list.innerHTML += `<div style="margin-bottom:8px;">${p.name}: <input type="number" step="0.01" value="${p.price}" id="adm-p-${p.id}" style="width:80px; padding:5px; background:#000; color:#fff; border:1px solid #333;"></div>`;
-            });
-        }
-
-        function salvarPrecosAdmin() {
-            let pkgs = JSON.parse(localStorage.getItem('bux_pkgs'));
-            pkgs.forEach(p => {
-                p.price = parseFloat(document.getElementById(`adm-p-${p.id}`).value);
-            });
-            localStorage.setItem('bux_pkgs', JSON.stringify(pkgs));
-            alert("Preços atualizados!");
+        function handleLogout() {
+            localStorage.removeItem('bx_logged');
             location.reload();
         }
 
-        function promoverUsuario() {
-            const e = document.getElementById('new-admin-email').value.trim().toLowerCase();
-            let users = JSON.parse(localStorage.getItem('bux_users'));
-            let u = users.find(user => user.email === e);
-            if(u) {
-                u.role = 'admin';
-                localStorage.setItem('bux_users', JSON.stringify(users));
-                alert("Sucesso! Próxima vez que ele logar será Admin.");
-            } else {
-                alert("Usuário não encontrado.");
+        // --- APP LOGIC ---
+        function start() {
+            if(!currentUser) return;
+            document.getElementById('auth-overlay').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            document.getElementById('u-name').innerText = currentUser.name;
+
+            // Verifica se é ADMIN
+            let admins = JSON.parse(localStorage.getItem('bx_admins'));
+            if(admins.includes(currentUser.email)) {
+                document.getElementById('admin-link').style.display = 'flex';
+                document.getElementById('u-badge').innerText = "Administrador";
+                document.getElementById('u-badge').style.color = "var(--primary)";
             }
+
+            renderProducts();
         }
 
-        function fecharAdminPanel() { document.getElementById('modal-admin').style.display = 'none'; }
-        function abrirMenu() { document.getElementById('sidebar').classList.add('open'); }
-        function fecharMenu() { document.getElementById('sidebar').classList.remove('open'); }
-        function fazerLogout() { localStorage.removeItem('bux_logged'); location.reload(); }
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const items = JSON.parse(localStorage.getItem('bx_items'));
+            grid.innerHTML = '';
 
-        // Checar se já está logado ao abrir
-        if(localStorage.getItem('bux_logged')) renderApp();
-    </script>
-</body>
-</html>
+            items.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = `price-card ${idx === 0 ? 'active' : ''}`;
+                div.innerHTML = `<span class="amount">${item.label}</span><span class="value">R$ ${item.val.toFixed(2)}</span>`;
+                div.onclick = () => {
+                    document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
+                    div.classList.add('active');
+                    selectedItem = item;
+                    updateUI();
+                };
+                grid.appendChild(div);
+                if(idx === 0) selectedItem = item;
+            });
+            updateUI();
+        }
+
+        function changeQty(v) {
+            qty = Math.max(1, qty + v);
+            document.getElementById('qty-val').innerText = qty;
+            updateUI();
+        }
+
+        function updateUI() {
+            const total = (selectedItem.val * qty).toFixed(2);
+            document.getElementById('total-display').innerText = `R$ ${total.replace('.', ',')}`;
+        }
+
+        // --- ADMIN PANELS ---
+        function switchTab(t) {
+            document.getElementById('pane-precos').style.display = t === 'p' ? 'block' : 'none';
+            document.getElementById('pane-admin').style.display = t === 'a' ? 'block' : 'none';
+            document.getElementById('tab-p').className = `tab-btn ${t === 'p' ? 'active' : ''}`;
+            document.getElementById('tab-a').className = `tab-btn ${t === 'a' ? 'active' : ''}`;
+        }
+
+        function openAdmin() {
+            document.getElementById('modal-admin').style.display = 'flex';
+            const list = document.getElementById('admin-list');
+            const items = JSON.parse(localStorage.getItem('bx_items'));
+            list.innerHTML = '';
+            items.forEach(item => {
+                list.innerHTML += `<div style="margin-bottom:12px;">
+                    <p style="font-size:0.7rem; color:gray; margin-bottom:4px;">${item.label}</p>
+                    <input type="number" step="0.01" value="${item.val}" id="inp-item-${item.id}" 
+                    style="width:100%; padding:10px; background:#000; border:1px solid #333; color:white; border-radius:8px;">
+                </div>`;
+            });
+        }
+
+        function saveAdminPrices() {
+            let items = JSON.parse(localStorage.getItem('bx_items'));
+            items.forEach(item => {
+                item.val = parseFloat(document.getElementById(`inp-item-${item.id}`).value);
+            });
+            localStorage.setItem('bx_items', JSON.stringify(items));
+            alert("Tabela atualizada com sucesso!");
+            location.reload();
+        }
+
+        // FUNÇÃO DE DAR ADMIN CORRIGIDA (TEMPO REAL)
+        function addAdminAccess() {
+            const mail = document.getElementById('admin-mail-input').value.toLowerCase().trim();
+            if(!mail) return alert("Digite um e-mail válido!");
+
+            let admins = JSON.parse(localStorage.getItem('bx_admins'));
+            
+            if(!admins.includes(mail)) {
+                admins.push(mail);
+                localStorage.setItem('bx_admins', JSON.stringify(admins));
+                alert("Acesso concedido! Quando o usuário logar, o painel aparecerá para ele.");
+                document.getElementById('admin-mail-input').value = "";
+            } else 
