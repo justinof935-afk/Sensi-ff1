@@ -13,6 +13,7 @@
             --text-white: #ffffff;
             --text-gray: #a0a0a0;
             --border-color: #2a2a2a;
+            --success-green: #2ecc71;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
@@ -24,153 +25,137 @@
             position: sticky; top: 0; z-index: 100;
         }
         .logo { background-color: var(--primary-yellow); color: black; padding: 5px 10px; font-weight: 900; }
-
         .header-icons { display: flex; gap: 15px; align-items: center; }
-        .cart-icon-container { position: relative; cursor: pointer; }
-        .cart-badge { 
-            position: absolute; top: -8px; right: -8px; background: red; color: white; 
-            font-size: 10px; padding: 2px 5px; border-radius: 50%; display: none;
-        }
-
-        /* Menu Lateral */
-        .side-menu {
-            position: fixed; top: 0; left: -250px; width: 250px; height: 100%;
-            background: var(--card-bg); z-index: 1001; transition: 0.3s;
-            padding: 20px; border-right: 1px solid var(--border-color);
-        }
-        .side-menu.active { left: 0; }
-        .side-menu ul { list-style: none; margin-top: 30px; }
-        .side-menu li { padding: 15px 0; border-bottom: 1px solid var(--border-color); font-weight: bold; }
-        .menu-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.7); display: none; z-index: 1000; 
-        }
-
-        .hero {
-            width: 100%; height: 200px;
-            background: linear-gradient(transparent, var(--bg-dark)), url('https://blog.roblox.com/wp-content/uploads/2022/05/Roblox_Logo_Grid.jpg');
-            background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .hero-logo { width: 100px; }
 
         .container { padding: 15px; }
-        .product-title { font-size: 1.5rem; margin-bottom: 5px; }
-        .location-tag { color: var(--text-gray); font-size: 0.8rem; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .product-title { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
+        .location-tag { color: var(--text-gray); font-size: 0.85rem; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
 
+        .status-badges { display: flex; gap: 10px; margin-bottom: 20px; }
+        .badge { background: #1a1a1a; padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 5px; }
+
+        /* Grid de Preços Idêntico à Foto */
         .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .price-card {
-            border: 1px solid var(--border-color); padding: 10px; border-radius: 4px;
-            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
+            border: 1px solid var(--border-color); padding: 10px; border-radius: 6px;
+            cursor: pointer; transition: 0.2s; background: transparent;
         }
-        .price-card.active { border-color: var(--primary-yellow); background: rgba(226, 255, 0, 0.05); position: relative; }
-        .price-card.active::after { content: '✓'; position: absolute; top: 5px; right: 5px; color: var(--primary-yellow); }
-        .price-card .amount { color: var(--primary-yellow); display: block; margin-bottom: 4px; font-weight: bold; }
-        .price-card .value { color: var(--text-gray); text-decoration: line-through; font-size: 0.65rem; }
-
-        .price-display { font-size: 1.8rem; font-weight: bold; margin-bottom: 5px; }
+        .price-card.active { border-color: var(--primary-yellow); background: var(--primary-yellow); color: black; position: relative; }
+        .price-card.active .amount, .price-card.active .value { color: black; }
+        .price-card.active::after { content: '✓'; position: absolute; top: 10px; right: 10px; font-weight: bold; }
         
-        .btn-buy-now {
-            width: 100%; background-color: var(--primary-yellow); color: black; border: none;
-            padding: 18px; font-weight: bold; font-size: 1rem; border-radius: 4px; cursor: pointer; margin-bottom: 10px;
-        }
-        .btn-add-cart {
-            width: 100%; background-color: transparent; color: var(--primary-yellow); border: 2px solid var(--primary-yellow);
-            padding: 15px; font-weight: bold; font-size: 1rem; border-radius: 4px; cursor: pointer;
-        }
+        .price-card .amount { display: block; font-weight: bold; font-size: 0.85rem; color: var(--text-white); }
+        .price-card .value { display: block; font-size: 0.75rem; color: var(--success-green); font-weight: bold; }
 
-        .payments { margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px; }
-        .pix-container { display: flex; align-items: center; gap: 10px; color: #32bcad; font-weight: bold; margin-top: 10px; }
+        /* Preço e Quantidade */
+        .price-section { border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 20px; }
+        .price-display-large { font-size: 2rem; font-weight: bold; }
+        .price-subtext { color: var(--primary-yellow); font-size: 0.9rem; margin-bottom: 20px; }
+
+        .qty-label { font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .qty-selector { display: flex; align-items: center; background: #1a1a1a; width: fit-content; border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 20px; }
+        .qty-btn { background: none; border: none; color: white; padding: 10px 20px; cursor: pointer; font-size: 1.2rem; }
+        .qty-val { padding: 0 20px; font-weight: bold; }
+
+        /* Barra de BNX Coins */
+        .bnx-bar { background: #1e112e; border: 1px solid #4b2a70; padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .bnx-text { font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .bnx-icon { color: #f39c12; }
+
+        /* Botões de Ação */
+        .btn-add-cart { width: 100%; background: #1a1a1a; border: 1px solid var(--border-color); color: white; padding: 15px; font-weight: bold; border-radius: 6px; margin-bottom: 10px; cursor: pointer; }
+        .btn-buy-now { width: 100%; background: var(--primary-yellow); border: none; color: black; padding: 18px; font-weight: 900; border-radius: 6px; cursor: pointer; text-transform: uppercase; font-size: 1rem; }
 
         /* Modais */
-        .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background: var(--card-bg); width: 90%; max-width: 400px; padding: 25px;
-            border-radius: 8px; border: 1px solid var(--border-color); text-align: center;
-        }
-        .modal-content input {
-            width: 100%; padding: 12px; margin-bottom: 20px; background: #000;
-            border: 1px solid var(--border-color); color: white; border-radius: 4px;
-        }
-        .btn-confirm, .btn-wa {
-            width: 100%; padding: 15px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;
-        }
-        .btn-confirm { background: var(--primary-yellow); color: #000; }
-        .btn-wa { background: #25d366; color: #fff; text-decoration: none; display: none; align-items: center; justify-content: center; gap: 10px; }
-
-        /* Estilo do Carrinho */
-        #cart-items-list { text-align: left; margin: 15px 0; max-height: 200px; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 0.9rem; }
-        .remove-item { color: #ff4d4d; cursor: pointer; margin-left: 10px; }
-
-        footer { margin-top: 50px; padding: 30px 15px; background-color: #050505; text-align: center; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--card-bg); width: 90%; max-width: 400px; padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; }
+        .modal-content input { width: 100%; padding: 12px; margin-bottom: 20px; background: #000; border: 1px solid var(--border-color); color: white; border-radius: 4px; }
+        .btn-confirm { width: 100%; padding: 15px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; background: var(--primary-yellow); color: #000; }
+        .btn-wa { background: #25d366; color: #fff; text-decoration: none; display: none; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border-radius: 4px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    <div class="side-menu" id="sideMenu">
-        <h2 style="color: var(--primary-yellow);">BUXBLOX</h2>
-        <ul>
-            <li onclick="toggleMenu()">Início</li>
-            <li onclick="toggleMenu()">Meus Pedidos</li>
-            <li onclick="toggleMenu()">Suporte</li>
-            <li onclick="toggleMenu()">Termos de Uso</li>
-        </ul>
-    </div>
-
     <header>
-        <i class="fas fa-bars" onclick="toggleMenu()" style="cursor: pointer;"></i>
+        <i class="fas fa-bars"></i>
         <div class="logo">BUXBLOX</div>
-        <div class="header-icons">
-            <div class="cart-icon-container" onclick="openCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </div>
-            <i class="far fa-user"></i>
-        </div>
+        <div class="header-icons"><i class="fas fa-shopping-cart"></i><i class="far fa-user"></i></div>
     </header>
-
-    <div class="hero">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" class="hero-logo">
-    </div>
 
     <div class="container">
         <h1 class="product-title">Roblox</h1>
-        <div class="location-tag"><i class="fas fa-map-marker-alt"></i> Brasil</div>
+        <div class="location-tag"><i class="fas fa-map-marker-alt"></i> Resgatável apenas no Brasil</div>
+
+        <div class="status-badges">
+            <div class="badge"><i class="fas fa-store"></i> Distribuidor oficial</div>
+            <div class="badge"><i class="fas fa-shield-alt"></i> Pagamento seguro</div>
+        </div>
 
         <div class="price-grid" id="grid">
-            <div class="price-card active" onclick="select(this, '415 Robux', '25,00')">
+            <div class="price-card active" onclick="select(this, '415 Robux', 25.00)">
                 <span class="amount">R$ 25 (415 Robux)</span>
-                <span class="value">R$ 28,00</span>
+                <span class="value">R$ 25,00</span>
             </div>
-            <div class="price-card" onclick="select(this, '500 Robux', '29,50')">
-                <span class="amount">R$ 29.5 (500 Robux)</span>
-                <span class="value">R$ 38,90</span>
+            <div class="price-card" onclick="select(this, '500 Robux', 29.90)">
+                <span class="amount">R$ 29.9 (500 Robux)</span>
+                <span class="value">R$ 29,90</span>
             </div>
-            <div class="price-card" onclick="select(this, '660 Robux', '40,00')">
+            <div class="price-card" onclick="select(this, '660 Robux', 40.00)">
                 <span class="amount">R$ 40 (660 Robux)</span>
-                <span class="value">R$ 48,00</span>
+                <span class="value">R$ 40,00</span>
             </div>
-            <div class="price-card" onclick="select(this, '1000 Robux', '55,00')">
-                <span class="amount">R$ 55 (1000 Robux)</span>
-                <span class="value">R$ 72,00</span>
+            <div class="price-card" onclick="select(this, '1000 Robux', 59.00)">
+                <span class="amount">R$ 59 (1000 Robux)</span>
+                <span class="value">R$ 59,00</span>
+            </div>
+            <div class="price-card" onclick="select(this, '1149 Robux', 85.00)">
+                <span class="amount">R$ 85 (1149 Robux)</span>
+                <span class="value">R$ 85,00</span>
+            </div>
+            <div class="price-card" onclick="select(this, '1349 Robux', 100.00)">
+                <span class="amount">R$ 100 (1349 Robux)</span>
+                <span class="value">R$ 100,00</span>
+            </div>
+            <div class="price-card" onclick="select(this, '2000 Robux', 117.90)">
+                <span class="amount">R$ 117.9 (2000 Robux)</span>
+                <span class="value">R$ 117,90</span>
+            </div>
+            <div class="price-card" onclick="select(this, '2316 Robux', 165.00)">
+                <span class="amount">R$ 165 (2316 Robux)</span>
+                <span class="value">R$ 165,00</span>
+            </div>
+            <div class="price-card" onclick="select(this, '2700 Robux', 200.00)">
+                <span class="amount">R$ 200 (2700 Robux)</span>
+                <span class="value">R$ 200,00</span>
+            </div>
+            <div class="price-card" onclick="select(this, '5250 Robux', 294.90)">
+                <span class="amount">R$ 294.90 (5250 Robux)</span>
+                <span class="value">R$ 294,90</span>
+            </div>
+            <div class="price-card" style="grid-column: span 2; text-align: center;">
+                <span class="amount">Outro valor</span>
             </div>
         </div>
 
-        <div class="price-display" id="display-price">R$ 25,00</div>
-        
-        <button class="btn-buy-now" onclick="openModal()">Comprar agora</button>
-        <button class="btn-add-cart" onclick="addToCart()">Adicionar ao carrinho</button>
+        <div class="price-section">
+            <p style="font-size: 0.8rem; color: var(--text-gray);">Preço</p>
+            <div class="price-display-large" id="display-price">R$ 25,00</div>
+            <div class="price-subtext" id="display-desc">R$ 25 (415 Robux)</div>
 
-        <div class="payments">
-            <small>Método de pagamento aceito:</small>
-            <div class="pix-container">
-                <i class="fab fa-pix fa-2x"></i> PIX (Entrega Imediata)
+            <label class="qty-label">Quantidade</label>
+            <div class="qty-selector">
+                <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                <span class="qty-val" id="qty">1</span>
+                <button class="qty-btn" onclick="updateQty(1)">+</button>
             </div>
+
+            <div class="bnx-bar">
+                <span class="bnx-text"><i class="fas fa-coins bnx-icon"></i> BNX Coins <span id="bnx-val">25</span></span>
+                <i class="fas fa-info-circle" style="color: #4b2a70;"></i>
+            </div>
+
+            <button class="btn-add-cart" onclick="alert('Adicionado ao carrinho!')">Adicionar ao carrinho</button>
+            <button class="btn-buy-now" onclick="openModal()">Comprar agora</button>
         </div>
     </div>
 
@@ -178,134 +163,57 @@
         <div class="modal-content">
             <div id="step1">
                 <h2>Dados do Jogador</h2>
-                <p style="color: var(--text-gray); font-size: 0.8rem; margin-bottom: 15px;">Informe o Nick para enviarmos os Robux</p>
-                <input type="text" id="nick" placeholder="Nome de usuário no Roblox">
+                <input type="text" id="nick" placeholder="Nick no Roblox">
                 <button class="btn-confirm" onclick="confirmData()">Confirmar Pedido</button>
             </div>
             <div id="step2" style="display: none;">
                 <h2 style="color: var(--primary-yellow);">Pedido Pronto!</h2>
-                <p style="margin-bottom: 20px;">Clique abaixo para finalizar o pagamento via WhatsApp.</p>
-                <a href="#" id="wa-link" class="btn-wa">
-                    <i class="fab fa-whatsapp"></i> MANDAR MENSAGEM
-                </a>
+                <a href="#" id="wa-link" class="btn-wa"><i class="fab fa-whatsapp"></i> MANDAR MENSAGEM</a>
             </div>
         </div>
     </div>
-
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <h2>Meu Carrinho</h2>
-            <div id="cart-items-list">
-                </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-bottom: 20px;">
-                <strong>Total: R$ <span id="cart-total">0,00</span></strong>
-            </div>
-            <button class="btn-confirm" onclick="checkoutCart()">Finalizar Tudo</button>
-            <button onclick="closeCart()" style="background: none; border: none; color: white; margin-top: 15px; cursor: pointer;">Fechar</button>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-logo">BUXBLOX</div>
-        <p style="font-size: 0.7rem; color: var(--text-gray);">All rights reserved 2026</p>
-    </footer>
 
     <script>
         let currentRobux = "415 Robux";
-        let currentPrice = "25,00";
-        let cart = [];
+        let unitPrice = 25.00;
+        let quantity = 1;
 
-        // Menu Lateral
-        function toggleMenu() {
-            document.getElementById('sideMenu').classList.toggle('active');
-            const overlay = document.getElementById('menuOverlay');
-            overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
-        }
-
-        // Selecionar pacote
         function select(el, robux, price) {
             document.querySelectorAll('.price-card').forEach(c => c.classList.remove('active'));
             el.classList.add('active');
             currentRobux = robux;
-            currentPrice = price;
-            document.getElementById('display-price').innerText = "R$ " + price;
+            unitPrice = price;
+            updateDisplay();
         }
 
-        // Carrinho
-        function addToCart() {
-            cart.push({ name: currentRobux, price: currentPrice });
-            updateCartUI();
-            alert(currentRobux + " adicionado ao carrinho!");
+        function updateQty(val) {
+            quantity += val;
+            if(quantity < 1) quantity = 1;
+            updateDisplay();
         }
 
-        function updateCartUI() {
-            const list = document.getElementById('cart-items-list');
-            const badge = document.getElementById('cartBadge');
-            const totalSpan = document.getElementById('cart-total');
-            
-            list.innerHTML = "";
-            let total = 0;
-
-            cart.forEach((item, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'cart-item';
-                itemDiv.innerHTML = `
-                    <span>${item.name} - R$ ${item.price}</span>
-                    <i class="fas fa-trash remove-item" onclick="removeItem(${index})"></i>
-                `;
-                list.appendChild(itemDiv);
-                total += parseFloat(item.price.replace(',', '.'));
-            });
-
-            totalSpan.innerText = total.toFixed(2).replace('.', ',');
-            badge.innerText = cart.length;
-            badge.style.display = cart.length > 0 ? 'block' : 'none';
+        function updateDisplay() {
+            let total = unitPrice * quantity;
+            document.getElementById('display-price').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('display-desc').innerText = `R$ ${unitPrice.toFixed(2).replace('.', ',')} (${currentRobux})`;
+            document.getElementById('qty').innerText = quantity;
+            document.getElementById('bnx-val').innerText = Math.floor(total);
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function openCart() { document.getElementById('cartModal').style.display = 'flex'; }
-        function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
-
-        // Finalizar
         function openModal() { document.getElementById('modal').style.display = 'flex'; }
-
-        function checkoutCart() {
-            if(cart.length === 0) return alert("Carrinho vazio!");
-            closeCart();
-            openModal();
-        }
 
         function confirmData() {
             const nick = document.getElementById('nick').value;
-            if(!nick) return alert("Por favor, digite seu nick!");
-
+            if(!nick) return alert("Nick obrigatório!");
             const fone = "5515996637490";
-            let resumo = "";
-            
-            if(cart.length > 0) {
-                cart.forEach(item => resumo += `- ${item.name} (R$ ${item.price})%0A`);
-            } else {
-                resumo = `- ${currentRobux} (R$ ${currentPrice})%0A`;
-            }
-
-            const msg = `Olá BuxBlox! Gostaria de comprar Robux.%0A%0A*Pedido:*%0A${resumo}%0A*Nick do Jogador:* ${nick}`;
+            const msg = `Olá! Quero comprar Robux.%0A%0A*Pacote:* ${currentRobux}%0A*Qtd:* ${quantity}%0A*Total:* ${document.getElementById('display-price').innerText}%0A*Nick:* ${nick}`;
             document.getElementById('wa-link').href = `https://wa.me/${fone}?text=${msg}`;
-            
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
             document.getElementById('wa-link').style.display = 'flex';
         }
 
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = "none";
-            }
-        }
+        window.onclick = (e) => { if(e.target.className === 'modal') document.getElementById('modal').style.display='none'; }
     </script>
 </body>
-    </html>
-    
+</html>
